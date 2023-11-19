@@ -61,26 +61,24 @@ After that, we are still holding 30% of the position, because with the first TP 
 
 Lets take a look at another example, where the bot goes full position and sell the whole position:
 
-<img width="812" alt="image" src="https://github.com/asier13/Python-Trading-Bot/assets/62717613/c4486048-7683-4a15-bfc4-656bf6ac401b">
+
 
 This is because the RSI closed below 26 and all buy entries where triggered, same with the TPs where the first one was when it closed with a 1% profit and second one because the RSI of the previous candle (marked with the second green line) above 65. If the bot didnt close, we would have touched the SL.
 This is the reason why we use the RSI in the buys and with the TPs, to secure profits and not depend on percentages. Here is the code for the TPs section:
 
-<img width="435" alt="image" src="https://github.com/asier13/Python-Trading-Bot/assets/62717613/8238aade-85df-4fd7-9b24-c9a47276e7c8">
 
 
 The buys are set at those RSI values for a reason, the bounces that we are looking for in this strategy are more likely in that 29-26 RSI value zone, giving us more W/R and more ROI because we get a better entry.
 Here is an example if we set the RSI values at 31 or 30 for example marked with circles that proof that we would have a lower W/R and higher drawdown:
 
-<img width="809" alt="image" src="https://github.com/asier13/Python-Trading-Bot/assets/62717613/3811c342-5dc7-4046-a042-46f06793a3b4">
 
 Last example to explain how we would hold the position and understand how the SL works in this strategy.
 So for the first scenario, sometimes the RSI value will go below 26 which is my last buy trade but we wouldnt get the bounce we want, but because we are trading on lower timeframes, we would have to wait for the higher timeframes to do the work for us.
 Here we would go full position as the RSI goes below 26 but we will only get a 0.55% bounce and RSI doesnt even reach 45, which is not enough to trigger our TPs. Price keeps falling and the bot just waits for TPs or the SLs. 
 
-<img width="804" alt="image" src="https://github.com/asier13/Python-Trading-Bot/assets/62717613/c4a6fa95-0d7f-4cbf-845f-ea3184634b7d">
+<img width="809" alt="image" src="https://github.com/asier13/Python-Trading-Bot/assets/62717613/8a9163f0-86b3-4032-8203-799f9f64eec0">
 
-The lowest it gets is -1.27%, which is far from our first SL in -2% and the bot keeps waiting. But the bounce comes and the RSI values trigger the RSI TPs, first at 55 and later on, at 65. These TPs in this situation act as SL because the PNL when the RSI is at 55 is at -0.25% and when it gets to 65 its basically B/E.
+The lowest it gets is -1.28%, which is far from our first SL in -2% and the bot keeps waiting. But the bounce comes and the RSI values trigger the RSI TPs, first at 55 and later on, at 65. These TPs in this situation act as SL because the PNL when the RSI is at 55 is at -0.25% and when it gets to 65 its basically B/E.
 For cases with strong downtrend and no bounces its very important to have a SL to avoid losing our capital, so here is an example, where price is falling heavy and we go full position, but the SL gets triggered as we fall below our -2% SL:
 
 <img width="814" alt="image" src="https://github.com/asier13/Python-Trading-Bot/assets/62717613/ab7f8915-9cdd-4296-95fc-3011e73153d5">
