@@ -40,58 +40,58 @@ Second SL percentage: -3%
 The bot executes 3 buy trades, the first one with 30% of the bank whenever the RSI on the 1min timeframe goes below 29, always after closure of the previous candle. The second on if the RSI goes below 27.5 with 50% of the remaining bank balance and the last buy would be if RSI value goes below 26.
 If the RSI value of the previous candle is 29.6 for example and the next one is 25.7, the bot goes full position in that candle because it has triggered all buy parameters. This is the code section for the buy signals:
 
-<img width="269" alt="image" src="https://github.com/asier13/Python_Bot/assets/62717613/2852b58e-b6a6-4b9c-930e-c4e37ecb7693">
+<img width="269" alt="image" src="https://github.com/asier13/Python-Trading-Bot/assets/62717613/2852b58e-b6a6-4b9c-930e-c4e37ecb7693">
 
 And this is an example of how it would look in the chart:
-<img width="814" alt="image" src="https://github.com/asier13/Python_Bot/assets/62717613/f7fe2e53-043a-4d62-a2cb-5f09178b9b83">
+<img width="814" alt="image" src="https://github.com/asier13/Python-Trading-Bot/assets/62717613/f7fe2e53-043a-4d62-a2cb-5f09178b9b83">
 
 The bot has triggered the first 2 buy signals, after that it keeps on calculating the RSI and now calculates the percentage of profit/loss of the position. The TPs now depends on the percentage and RSI profit of the position set by the user.
 The RSI is an oscillator that measures the speed and change of price movements, supply and demand zones basically. Whenever the RSI drops below 30 it indicates the asset is oversold and usually tends have a bounce, depending on the timeframe it would be stronger or longer.
 If it goes over 70, it means the asset is overbought and there is usually a rejection in the price. I use the term "usually" because the assets dont always act like that, depends on the trend, news or other factors that may impact the price action.
 Now that we understand what the RSI is and how it works, let me explain how the TPs work. 
 The bot bought at $21.77 and now waits for another buy oportunity or for the TP parameters to be triggered. Sometimes we dont reach the percentages TPs, so to avoid touching the SL, the RSI TPs help us get out with profit and maybe re-enter afterwards.
-<img width="814" alt="image" src="https://github.com/asier13/Python_Bot/assets/62717613/3a1ceb22-cb73-4e94-8d28-4350d171b78b">
+<img width="814" alt="image" src="https://github.com/asier13/Python-Trading-Bot/assets/62717613/3a1ceb22-cb73-4e94-8d28-4350d171b78b">
 
 In this case, the bot triggered the first TP because the position's PNL is higher than 0.75%, which is the first percentage TP, eventhough the RSI value is 54 and our first RSI TP was 55. So we got higher PNL than the parameter we had.
 After that, we are still holding 30% of the position, because with the first TP parameters we sell 70% of the position, the other 30% will be triggered or holded and added to a new position later on. In that case the second TP was triggered, getting 2.4% on that 30% remaining plus the 0.8% got in the first TP:
 
-<img width="818" alt="image" src="https://github.com/asier13/Python_Bot/assets/62717613/b9e63870-6316-4966-ad03-10d93007c6f2">
+<img width="818" alt="image" src="https://github.com/asier13/Python-Trading-Bot/assets/62717613/b9e63870-6316-4966-ad03-10d93007c6f2">
 
 Lets take a look at another example, where the bot goes full position and sell the whole position:
-<img width="812" alt="image" src="https://github.com/asier13/Python_Bot/assets/62717613/c4486048-7683-4a15-bfc4-656bf6ac401b">
+<img width="812" alt="image" src="https://github.com/asier13/Python-Trading-Bot/assets/62717613/c4486048-7683-4a15-bfc4-656bf6ac401b">
 
 This is because the RSI closed below 26 and all buy entries where triggered, same with the TPs where the first one was when it closed with a 1% profit and second one because the RSI of the previous candle (marked with the second green line) above 65. If the bot didnt close, we would have touched the SL.
 This is the reason why we use the RSI in the buys and with the TPs, to secure profits and not depend on percentages. Here is the code for the TPs section:
 
-<img width="435" alt="image" src="https://github.com/asier13/Python_Bot/assets/62717613/8238aade-85df-4fd7-9b24-c9a47276e7c8">
+<img width="435" alt="image" src="https://github.com/asier13/Python-Trading-Bot/assets/62717613/8238aade-85df-4fd7-9b24-c9a47276e7c8">
 
 
 The buys are set at those RSI values for a reason, the bounces that we are looking for in this strategy are more likely in that 29-26 RSI value zone, giving us more W/R and more ROI because we get a better entry.
 Here is an example if we set the RSI values at 31 or 30 for example marked with circles that proof that we would have a lower W/R and higher drawdown:
 
-<img width="809" alt="image" src="https://github.com/asier13/Python_Bot/assets/62717613/3811c342-5dc7-4046-a042-46f06793a3b4">
+<img width="809" alt="image" src="https://github.com/asier13/Python-Trading-Bot/assets/62717613/3811c342-5dc7-4046-a042-46f06793a3b4">
 
 Last example to explain how we would hold the position and understand how the SL works in this strategy.
 So for the first scenario, sometimes the RSI value will go below 26 which is my last buy trade but we wouldnt get the bounce we want, but because we are trading on lower timeframes, we would have to wait for the higher timeframes to do the work for us.
 Here we would go full position as the RSI goes below 26 but we will only get a 0.55% bounce and RSI doesnt even reach 45, which is not enough to trigger our TPs. Price keeps falling and the bot just waits for TPs or the SLs. 
 
-<img width="804" alt="image" src="https://github.com/asier13/Python_Bot/assets/62717613/c4a6fa95-0d7f-4cbf-845f-ea3184634b7d">
+<img width="804" alt="image" src="https://github.com/asier13/Python-Trading-Bot/assets/62717613/c4a6fa95-0d7f-4cbf-845f-ea3184634b7d">
 
 The lowest it gets is -1.27%, which is far from our first SL in -2% and the bot keeps waiting. But the bounce comes and the RSI values trigger the RSI TPs, first at 55 and later on, at 65. These TPs in this situation act as SL because the PNL when the RSI is at 55 is at -0.25% and when it gets to 65 its basically B/E.
 For cases with strong downtrend and no bounces its very important to have a SL to avoid losing our capital, so here is an example, where price is falling heavy and we go full position, but the SL gets triggered as we fall below our -2% SL:
 
-<img width="817" alt="image" src="https://github.com/asier13/Python_Bot/assets/62717613/35d0cb5a-ba46-4938-a0e4-fe65960a8aed">
+<img width="817" alt="image" src="https://github.com/asier13/Python-Trading-Bot/assets/62717613/35d0cb5a-ba46-4938-a0e4-fe65960a8aed">
 
 Because we are full position, the bot cant keep adding trades, so it has to wait for the price to bounce or the SLs. For the first SL we sell 70% of the position at a -2% loss, the percentage depends on the asset and risk management of the user as I said at the beginning.
 The bot as soon as it sells, it triggers a buy and goes full position again because the previous candle closed with a RSI value below 26, averaging the position and again, wait for new trades, either the TPs or SLs to get triggered, in that case it was the TPs:
 
-<img width="815" alt="image" src="https://github.com/asier13/Python_Bot/assets/62717613/e4950192-95d3-4f1b-b273-edfe4acbb982">
+<img width="815" alt="image" src="https://github.com/asier13/Python-Trading-Bot/assets/62717613/e4950192-95d3-4f1b-b273-edfe4acbb982">
 
 If the price continued dropping and the PNL went below -3%, the bot will sell the entire position and will wait for next buying opportunities.
 
 When the analysis is finished, the bot stores the best assets with a ROI over 50% and a W/R over 70%, saving the values of the parameters used, the date the user used to analyze the PA of the asset using the strategy, the initial bank, roi, W/R and drawdown.
 
-<img width="446" alt="image" src="https://github.com/asier13/Python_Bot/assets/62717613/beb2dae5-08cb-40e1-9dfc-6748fa59e758">
+<img width="446" alt="image" src="https://github.com/asier13/Python-Trading-Bot/assets/62717613/beb2dae5-08cb-40e1-9dfc-6748fa59e758">
 
 I hope you appreciate the work and the analysis. This is NFA and DYOR as always. Have fun with it!
 
