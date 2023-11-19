@@ -40,7 +40,7 @@ Second SL percentage: -3%
 The bot executes 3 buy trades, the first one with 30% of the bank whenever the RSI on the 1min timeframe goes below 29, always after closure of the previous candle. The second on if the RSI goes below 27.5 with 50% of the remaining bank balance and the last buy would be if RSI value goes below 26.
 If the RSI value of the previous candle is 29.6 for example and the next one is 25.7, the bot goes full position in that candle because it has triggered all buy parameters. This is the code section for the buy signals:
 
-<img width="269" alt="image" src="https://github.com/asier13/Python-Trading-Bot/assets/62717613/2852b58e-b6a6-4b9c-930e-c4e37ecb7693">
+<img width="274" alt="image" src="https://github.com/asier13/Python-Trading-Bot/assets/62717613/85bcc8ce-c93f-4258-9a7b-fd26ee80d7ca">
 
 And this is an example of how it would look in the chart:
 <img width="814" alt="image" src="https://github.com/asier13/Python-Trading-Bot/assets/62717613/f7fe2e53-043a-4d62-a2cb-5f09178b9b83">
@@ -80,12 +80,12 @@ Here we would go full position as the RSI goes below 26 but we will only get a 0
 The lowest it gets is -1.27%, which is far from our first SL in -2% and the bot keeps waiting. But the bounce comes and the RSI values trigger the RSI TPs, first at 55 and later on, at 65. These TPs in this situation act as SL because the PNL when the RSI is at 55 is at -0.25% and when it gets to 65 its basically B/E.
 For cases with strong downtrend and no bounces its very important to have a SL to avoid losing our capital, so here is an example, where price is falling heavy and we go full position, but the SL gets triggered as we fall below our -2% SL:
 
-<img width="817" alt="image" src="https://github.com/asier13/Python-Trading-Bot/assets/62717613/35d0cb5a-ba46-4938-a0e4-fe65960a8aed">
+<img width="814" alt="image" src="https://github.com/asier13/Python-Trading-Bot/assets/62717613/ab7f8915-9cdd-4296-95fc-3011e73153d5">
 
 Because we are full position, the bot cant keep adding trades, so it has to wait for the price to bounce or the SLs. For the first SL we sell 70% of the position at a -2% loss, the percentage depends on the asset and risk management of the user as I said at the beginning.
 The bot as soon as it sells, it triggers a buy and goes full position again because the previous candle closed with a RSI value below 26, averaging the position and again, wait for new trades, either the TPs or SLs to get triggered, in that case it was the TPs:
 
-<img width="815" alt="image" src="https://github.com/asier13/Python-Trading-Bot/assets/62717613/e4950192-95d3-4f1b-b273-edfe4acbb982">
+<img width="814" alt="image" src="https://github.com/asier13/Python-Trading-Bot/assets/62717613/043a0c29-7192-42f1-9433-027bf0e37112">
 
 If the price continued dropping and the PNL went below -3%, the bot will sell the entire position and will wait for next buying opportunities.
 
