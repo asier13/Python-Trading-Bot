@@ -93,8 +93,6 @@ If the price continued dropping and the PNL went below -3%, the bot will sell th
 
 When the analysis is finished, the bot stores the best assets with a ROI over 50% and a W/R over 70%, saving the values of the parameters used, the date the user used to analyze the PA of the asset using the strategy, the initial bank, roi, W/R and drawdown.
 
-<img width="446" alt="image" src="https://github.com/asier13/Python-Trading-Bot/assets/62717613/beb2dae5-08cb-40e1-9dfc-6748fa59e758">
-
 I hope you appreciate the work and the analysis. This is NFA and DYOR as always. Have fun with it!
 
 
