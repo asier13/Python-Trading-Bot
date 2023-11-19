@@ -61,16 +61,17 @@ After that, we are still holding 30% of the position, because with the first TP 
 
 Lets take a look at another example, where the bot goes full position and sell the whole position:
 
-
+<img width="804" alt="image" src="https://github.com/asier13/Python-Trading-Bot/assets/62717613/8cd7ce85-08aa-412a-a765-4bb5b4c5fbf6">
 
 This is because the RSI closed below 26 and all buy entries where triggered, same with the TPs where the first one was when it closed with a 1% profit and second one because the RSI of the previous candle (marked with the second green line) above 65. If the bot didnt close, we would have touched the SL.
 This is the reason why we use the RSI in the buys and with the TPs, to secure profits and not depend on percentages. Here is the code for the TPs section:
 
-
+<img width="442" alt="image" src="https://github.com/asier13/Python-Trading-Bot/assets/62717613/815e7765-4335-459c-952a-37b194c081c2">
 
 The buys are set at those RSI values for a reason, the bounces that we are looking for in this strategy are more likely in that 29-26 RSI value zone, giving us more W/R and more ROI because we get a better entry.
 Here is an example if we set the RSI values at 31 or 30 for example marked with circles that proof that we would have a lower W/R and higher drawdown:
 
+<img width="809" alt="image" src="https://github.com/asier13/Python-Trading-Bot/assets/62717613/4b671dca-c464-4fdc-850e-90532a38b330">
 
 Last example to explain how we would hold the position and understand how the SL works in this strategy.
 So for the first scenario, sometimes the RSI value will go below 26 which is my last buy trade but we wouldnt get the bounce we want, but because we are trading on lower timeframes, we would have to wait for the higher timeframes to do the work for us.
