@@ -22,7 +22,7 @@ RSI values for buys, the user will set these values depending on where the bot w
 RSI values for TPs, is if the percentage for TPs doesn't reach their targets but does trigger the value of RSI TPs, a sell trade will be executed to avoid loss on profits or on the position. I will explain later on why this is necessary.
 
 With that been said, lets move on the explanation of how the strategy works:
-The user will choose an asset to analyze, change the parameters adjusted to his risk management. I've an example to be clearer.
+The user will choose an asset to analyze, change the parameters adjusted to his risk management. I'll give you an example to be clearer.
 Lets look at AVAX/USDT for example, in the 1min timeframe and with these parameters:
 Initial Bank: 1000
 RSI values for the buys:
