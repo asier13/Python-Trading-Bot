@@ -43,21 +43,24 @@ If the RSI value of the previous candle is 29.6 for example and the next one is 
 <img width="274" alt="image" src="https://github.com/asier13/Python-Trading-Bot/assets/62717613/85bcc8ce-c93f-4258-9a7b-fd26ee80d7ca">
 
 And this is an example of how it would look in the chart:
-<img width="814" alt="image" src="https://github.com/asier13/Python-Trading-Bot/assets/62717613/f7fe2e53-043a-4d62-a2cb-5f09178b9b83">
+
+<img width="811" alt="image" src="https://github.com/asier13/Python-Trading-Bot/assets/62717613/ecc59390-96a1-4b0a-9f8f-20e52a63ac00">
 
 The bot has triggered the first 2 buy signals, after that it keeps on calculating the RSI and now calculates the percentage of profit/loss of the position. The TPs now depends on the percentage and RSI profit of the position set by the user.
 The RSI is an oscillator that measures the speed and change of price movements, supply and demand zones basically. Whenever the RSI drops below 30 it indicates the asset is oversold and usually tends have a bounce, depending on the timeframe it would be stronger or longer.
 If it goes over 70, it means the asset is overbought and there is usually a rejection in the price. I use the term "usually" because the assets dont always act like that, depends on the trend, news or other factors that may impact the price action.
 Now that we understand what the RSI is and how it works, let me explain how the TPs work. 
 The bot bought at $21.77 and now waits for another buy oportunity or for the TP parameters to be triggered. Sometimes we dont reach the percentages TPs, so to avoid touching the SL, the RSI TPs help us get out with profit and maybe re-enter afterwards.
-<img width="814" alt="image" src="https://github.com/asier13/Python-Trading-Bot/assets/62717613/3a1ceb22-cb73-4e94-8d28-4350d171b78b">
 
-In this case, the bot triggered the first TP because the position's PNL is higher than 0.75%, which is the first percentage TP, eventhough the RSI value is 54 and our first RSI TP was 55. So we got higher PNL than the parameter we had.
+<img width="817" alt="image" src="https://github.com/asier13/Python-Trading-Bot/assets/62717613/007fadf7-d974-420f-b2fe-9ef44fa64fc1">
+
+In this case, the bot triggered the first TP because the position's PNL is higher than 0.75%, which is the first percentage TP, eventhough the RSI value is 53 and our first RSI TP was 55. So we got higher PNL than the parameter we had.
 After that, we are still holding 30% of the position, because with the first TP parameters we sell 70% of the position, the other 30% will be triggered or holded and added to a new position later on. In that case the second TP was triggered, getting 2.4% on that 30% remaining plus the 0.8% got in the first TP:
 
-<img width="818" alt="image" src="https://github.com/asier13/Python-Trading-Bot/assets/62717613/b9e63870-6316-4966-ad03-10d93007c6f2">
+<img width="802" alt="image" src="https://github.com/asier13/Python-Trading-Bot/assets/62717613/bb55435d-129a-499e-ae4c-affe317581e9">
 
 Lets take a look at another example, where the bot goes full position and sell the whole position:
+
 <img width="812" alt="image" src="https://github.com/asier13/Python-Trading-Bot/assets/62717613/c4486048-7683-4a15-bfc4-656bf6ac401b">
 
 This is because the RSI closed below 26 and all buy entries where triggered, same with the TPs where the first one was when it closed with a 1% profit and second one because the RSI of the previous candle (marked with the second green line) above 65. If the bot didnt close, we would have touched the SL.
