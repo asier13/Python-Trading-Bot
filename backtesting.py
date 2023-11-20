@@ -29,14 +29,13 @@ def backtest_strategy(data):
     wins = 0
     losses = 0
     first_tp_perc = 0.75
-    sec_tp_perc = 1.75
-    first_sl_perc = -2
-    sec_sl_perc = -3
-    rsi_value_1 = 55
-    rsi_value_2 = 62.5
-    buy_rsi_1 = 29
-    buy_rsi_2 = 27.5
-    buy_rsi_3 = 26
+    sec_tp_perc = 1.25
+    sl_perc = -2.5
+    rsi_value_1 = 45
+    rsi_value_2 = 59
+    buy_rsi_1 = 29.5
+    buy_rsi_2 = 28
+    buy_rsi_3 = 27
     
     for index, row in data.iterrows():
         rsi = row['RSI']
@@ -61,44 +60,47 @@ def backtest_strategy(data):
         # Check for sell signals
         if holdings > 0:
             profit_percent = (price - buy_price) / buy_price * 100
-
             # First sell condition
             if profit_percent >= first_tp_perc or rsi > rsi_value_1:
                 sell_amount = holdings * 0.7
                 bank += sell_amount * price
                 holdings -= sell_amount
+                if profit_loss_percent > 0: 
+                    wins += 1
+                else: 
+                    losses += 1
 
             # Second sell condition
             if profit_percent >= sec_tp_perc or rsi > rsi_value_2:
-                bank += holdings * price
+                sell_amount = holdings
+                bank += sell_amount * price
                 holdings = 0
+                if profit_loss_percent > 0: 
+                    wins += 1
+                else: 
+                    losses += 1
 
         # Check for stop loss conditions
         loss_percent = (price - buy_price) / buy_price * 100
-
-        if loss_percent <= first_sl_perc:
-            sell_amount = holdings * 0.7
+        if loss_percent <= sl_perc:
+            sell_amount = holdings
             bank += sell_amount * price
-            holdings -= sell_amount
-
-        if loss_percent <= sec_sl_perc:
-            bank += holdings * price
             holdings = 0
+            losses += 1  # Increment losses for this stop loss
 
-        # Calculate profit or loss percent
+        # Update wins and losses based on sell conditions and actual PnL
         profit_loss_percent = (price - buy_price) / buy_price * 100 if buy_price != 0 else 0
-
-        # Update wins based on sell conditions
-        if profit_loss_percent >= first_tp_perc or rsi > rsi_value_1:
+        
+        if (profit_percent >= first_tp_perc or rsi > rsi_value_1) and profit_loss_percent > 0:
             wins += 1
-        if profit_loss_percent >= sec_tp_perc or rsi > rsi_value_2:
-            wins += 1
+        elif (profit_percent >= first_tp_perc or rsi > rsi_value_1) and profit_loss_percent <= 0:
+            losses += 1
 
-        # Update losses based on stop-loss conditions
-        if profit_loss_percent <= first_sl_perc:
+        if (profit_percent >= sec_tp_perc or rsi > rsi_value_2) and profit_loss_percent > 0:
+            wins += 1
+        elif (profit_percent >= sec_tp_perc or rsi > rsi_value_2) and profit_loss_percent <= 0:
             losses += 1
-        if profit_loss_percent <= sec_sl_perc:
-            losses += 1
+
             
         # Calculate drawdown
         current_drawdown = (price - buy_price) / buy_price * 100 if buy_price != 0 else 0
@@ -111,9 +113,9 @@ def backtest_strategy(data):
     winrate = wins / (wins + losses) if (wins + losses) > 0 else 0
     roi = (final_bank - initial_bank) / initial_bank
     
-    return profit_loss, winrate, wins, losses, max_drawdown, roi, initial_bank, first_tp_perc, sec_tp_perc, first_sl_perc, sec_sl_perc, rsi_value_1, rsi_value_2, buy_rsi_1, buy_rsi_2, buy_rsi_3
+    return profit_loss, winrate, wins, losses, max_drawdown, roi, initial_bank, first_tp_perc, sec_tp_perc, sl_perc, rsi_value_1, rsi_value_2, buy_rsi_1, buy_rsi_2, buy_rsi_3
 
-def save_results(pair, timeframe, starting_date, end_date, initial_bank, profit_loss, roi, winrate, wins, losses, max_drawdown,  first_tp_perc, sec_tp_perc, first_sl_perc, sec_sl_perc, rsi_value_1, rsi_value_2, buy_rsi_1, buy_rsi_2, buy_rsi_3):
+def save_results(pair, timeframe, starting_date, end_date, initial_bank, profit_loss, roi, winrate, wins, losses, max_drawdown,  first_tp_perc, sec_tp_perc, sl_perc, rsi_value_1, rsi_value_2, buy_rsi_1, buy_rsi_2, buy_rsi_3):
     if roi > 0.50 and winrate > 0.70:
         with open('best_assets.txt', 'a') as file:
             file.write(f"Pair: {pair}\n")
@@ -136,21 +138,20 @@ def save_results(pair, timeframe, starting_date, end_date, initial_bank, profit_
             file.write(f'First RSI TP value: {rsi_value_1}\n')
             file.write(f'Second RSI TP value: {rsi_value_2}\n')
             file.write(f'Values in SLs:\n')
-            file.write(f'First SL percentage: {first_sl_perc}%\n')
-            file.write(f'Second SL percentage: {sec_sl_perc}%\n')
+            file.write(f'First SL percentage: {sl_perc}%\n')
             file.write(f"---------------------------------\n\n")
 
 
 # Load historical data for the cryptocurrency
 timeframe = "1m"
-starting_date = "15 November 2022"
+starting_date = "1 January 2022"
 end_date = "15 November 2023"
 data = download_data("AVAX", "USDT", timeframe, starting_date, end_date)
 data['RSI'] = calculate_rsi(data['close'])
 
 # Run backtest
 pair = "AVAX/USDT" #Change the pair name here and when you download the data, they will have to match
-result, winrate, wins, losses, max_drawdown, roi, initial_bank, first_tp_perc, sec_tp_perc, first_sl_perc, sec_sl_perc, rsi_value_1, rsi_value_2, buy_rsi_1, buy_rsi_2, buy_rsi_3 = backtest_strategy(data)
+result, winrate, wins, losses, max_drawdown, roi, initial_bank, first_tp_perc, sec_tp_perc, sl_perc, rsi_value_1, rsi_value_2, buy_rsi_1, buy_rsi_2, buy_rsi_3 = backtest_strategy(data)
 print(f"Final Profit/Loss: {result}")
 print(f"TimeFrame: {timeframe}")
 print(f"Starting date: {starting_date}")
@@ -159,5 +160,5 @@ print(f"ROI: {roi*100}%")
 print(f"WinRate: {winrate*100}%")
 print(f"Wins: {wins}, Losses: {losses}")
 print(f"Max Drawdown: {max_drawdown}%")
-save_results(pair, timeframe, starting_date, end_date, initial_bank, result, roi, winrate, wins, losses, max_drawdown, first_tp_perc, sec_tp_perc, first_sl_perc, sec_sl_perc, rsi_value_1, rsi_value_2, buy_rsi_1, buy_rsi_2, buy_rsi_3)
+save_results(pair, timeframe, starting_date, end_date, initial_bank, result, roi, winrate, wins, losses, max_drawdown, first_tp_perc, sec_tp_perc, sl_perc, rsi_value_1, rsi_value_2, buy_rsi_1, buy_rsi_2, buy_rsi_3)
 
