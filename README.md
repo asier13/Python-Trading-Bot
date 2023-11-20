@@ -109,7 +109,7 @@ The bot as soon as it sells, it triggers a buy and goes full position again beca
 
 ![image](https://github.com/asier13/Python-Trading-Bot/assets/62717613/a04894d8-24f1-4a14-a53b-3c9bc5313a0b)
 
-If the price continued dropping and the PNL went below -3%, the bot will sell the entire position and will wait for next buying opportunities.
+If the price continued dropping, the bot will wait for next buying opportunities.
 
 When the analysis is finished, the bot stores the best assets with a ROI over 50% and a W/R over 70%, saving the values of the parameters used, the date the user used to analyze the PA of the asset using the strategy, the initial bank, roi, W/R and drawdown.
 
