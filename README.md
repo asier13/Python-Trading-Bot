@@ -54,7 +54,8 @@ Second SL percentage: -3%
 The bot executes 3 buy trades, the first one with 30% of the bank whenever the RSI on the 1min timeframe goes below 29, always after closure of the previous candle. The second on if the RSI goes below 27.5 with 50% of the remaining bank balance and the last buy would be if RSI value goes below 26.
 If the RSI value of the previous candle is 29.6 for example and the next one is 25.7, the bot goes full position in that candle because it has triggered all buy parameters. This is the code section for the buy signals:
 
-<img width="274" alt="image" src="https://github.com/asier13/Python-Trading-Bot/assets/62717613/85bcc8ce-c93f-4258-9a7b-fd26ee80d7ca">
+![image](https://github.com/asier13/Python-Trading-Bot/assets/62717613/a5ea718c-a497-4947-b973-63ed1025f0c1)
+
 
 And this is an example of how it would look in the chart:
 
