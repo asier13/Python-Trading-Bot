@@ -17,7 +17,7 @@ The calculate_rsi() function calculates the value of RSI to use it in the strate
 Backtest_strategy() uses the following parameters:
 Inital bank, which is the money the user will use for testing the strategy.
 Percentages for TPs, where the user will adjust them depending on the asset they want to test the strategy on.
-Percentages for SLs, very important to keep the drawdown low and maintain a management risk and security on the position/bank balance. Depending on the asset and risk management of the user, the SLs will be higher or lower.
+Percentages for SL, very important to keep the drawdown low and maintain a management risk and security on the position/bank balance. Depending on the asset and risk management of the user, the SL will be higher or lower.
 RSI values for buys, the user will set these values depending on where the bot will start executing the trades, which also depends on the asset and timeframe used.
 RSI values for TPs, is if the percentage for TPs doesn't reach their targets but does trigger the value of RSI TPs, a sell trade will be executed to avoid loss on profits or on the position. I will explain later on why this is necessary.
 
@@ -47,9 +47,8 @@ Second RSI TP value: 65
 
 Values in SLs:
 
-First SL percentage: -2%
+SL percentage: -2%
 
-Second SL percentage: -3%
 
 The bot executes 3 buy trades, the first one with 30% of the bank whenever the RSI on the 1min timeframe goes below 29, always after closure of the previous candle. The second on if the RSI goes below 27.5 with 50% of the remaining bank balance and the last buy would be if RSI value goes below 26.
 If the RSI value of the previous candle is 29.6 for example and the next one is 25.7, the bot goes full position in that candle because it has triggered all buy parameters. This is the code section for the buy signals:
@@ -99,14 +98,14 @@ Here we would go full position as the RSI goes below 26 but we will only get a 0
 ![image](https://github.com/asier13/Python-Trading-Bot/assets/62717613/3603eb2b-5028-442f-8ebe-f6a1412f8ed6)
 
 
-The lowest it gets is -1.28%, which is far from our first SL in -2% and the bot keeps waiting. But the bounce comes and the RSI values trigger the RSI TPs, first at 55 and later on, at 65. These TPs in this situation act as SL because the PNL when the RSI is at 55 is at -0.25% and when it gets to 65 its basically B/E.
+The lowest it gets is -1.28%, which is far from our SL in -2% and the bot keeps waiting. But the bounce comes and the RSI values trigger the RSI TPs, first at 55 and later on, at 65. These TPs in this situation act as SL because the PNL when the RSI is at 55 is at -0.25% and when it gets to 65 its basically B/E.
 For cases with strong downtrend and no bounces its very important to have a SL to avoid losing our capital, so here is an example, where price is falling heavy and we go full position, but the SL gets triggered as we fall below our -2% SL:
 
 ![image](https://github.com/asier13/Python-Trading-Bot/assets/62717613/8335ad1b-3174-4f95-91e0-ce0e94d1e011)
 
 
-Because we are full position, the bot cant keep adding trades, so it has to wait for the price to bounce or the SLs. For the first SL we sell 70% of the position at a -2% loss, the percentage depends on the asset and risk management of the user as I said at the beginning.
-The bot as soon as it sells, it triggers a buy and goes full position again because the previous candle closed with a RSI value below 26, averaging the position and again, wait for new trades, either the TPs or SLs to get triggered, in that case it was the TPs:
+Because we are full position, the bot cant keep adding trades, so it has to wait for the price to bounce or the SL. When we touch the SL we sell the position at a -2% loss, the percentage depends on the asset and risk management of the user as I said at the beginning.
+The bot as soon as it sells, it triggers a buy and goes full position again because the previous candle closed with a RSI value below 26, averaging the position and again, wait for new trades, either the TPs or SL to get triggered, in that case it was the TPs:
 
 ![image](https://github.com/asier13/Python-Trading-Bot/assets/62717613/a04894d8-24f1-4a14-a53b-3c9bc5313a0b)
 
