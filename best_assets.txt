@@ -1,137 +1,70 @@
+
+Pair: QNT/USDT
+Timeframe: 15m
+Starting date: 1 January 2022
+End date: 1 November 2023
+Initial Bank: 1000
+Final Profit/Loss: 5439.999221600069
+ROI: 543.9999221600069%
+Win Rate: 83.08294820616791%
+Wins: 65977, Losses: 13434
+Max Drawdown: -7.1499503475670325%
+RSI values for the buys:
+First buy at RSI value: 31
+Second buy at RSI value: 30
+Third buy at RSI value: 28.5
+Values in TPs:
+First TP percentage: 1.25%
+Second TP percentage: 2%
+First RSI TP value: 40
+Second RSI TP value: 55
+Values in SL:
+SL percentage: -1.85%
+---------------------------------
+
 Pair: ROSE/USDT
-Final Profit/Loss: 319.59583590721104
-ROI: 159.79791795360552%
-Win Rate: 75.0133285942776%
-Wins: 4221, Losses: 1406
-Max Drawdown: -19.89830839933509%
+Timeframe: 15m
+Starting date: 1 January 2022
+End date: 1 November 2023
+Initial Bank: 1000
+Final Profit/Loss: 1155.6960637803613
+ROI: 115.56960637803613%
+Win Rate: 86.1471642846321%
+Wins: 68232, Losses: 10972
+Max Drawdown: -10.620722209110212%
 RSI values for the buys:
 First buy at RSI value: 30
+Second buy at RSI value: 29
+Third buy at RSI value: 27.5
+Values in TPs:
+First TP percentage: 1.25%
+Second TP percentage: 2%
+First RSI TP value: 40
+Second RSI TP value: 55
+Values in SL:
+SL percentage: -1.85%
+---------------------------------
+
+
+Pair: QNT/USDT
+Timeframe: 5m
+Starting date: 1 January 2022
+End date: 15 November 2023
+Initial Bank: 1000
+Final Profit/Loss: 17489.183840542613
+ROI: 1748.9183840542612%
+Win Rate: 80.00139220625536%
+Wins: 183884, Losses: 45967
+Max Drawdown: -8.239700374531832%
+RSI values for the buys:
+First buy at RSI value: 29.5
 Second buy at RSI value: 28.5
 Third buy at RSI value: 27
 Values in TPs:
-First TP percentage: 1.5%
-Second TP percentage: 2.5%
-First RSI TP value: 50
-Second RSI TP value: 62.5
-Values in SLs:
-First SL percentage: -3%
-Second SL percentage: -4.5%
----------------------------------
-
-Pair: DOT/USDT
-Final Profit/Loss: 174.02877296327085
-ROI: 87.01438648163543%
-Win Rate: 72.53402462734932%
-Wins: 5596, Losses: 2119
-Max Drawdown: -13.42498989082086%
-RSI values for the buys:
-First buy at RSI value: 32
-Second buy at RSI value: 30
-Third buy at RSI value: 29
-Values in TPs:
-First TP percentage: 1.5%
-Second TP percentage: 2.5%
-First RSI TP value: 50
-Second RSI TP value: 62.5
-Values in SLs:
-First SL percentage: -2.25%
-Second SL percentage: -3.5%
----------------------------------
-
-Pair: XLM/USDT
-Timeframe: 1m
-Starting date: 01 January 2023
-End date: 15 November 2023
-Initial Bank: 200
-Final Profit/Loss: 231.3727493908213
-ROI: 115.68637469541065%
-Win Rate: 96.71939758332847%
-Wins: 33138, Losses: 1124
-Max Drawdown: -5.513595166163143%
-RSI values for the buys:
-First buy at RSI value: 29
-Second buy at RSI value: 27
-Third buy at RSI value: 26
-Values in TPs:
 First TP percentage: 1%
-Second TP percentage: 2%
-First RSI TP value: 55
-Second RSI TP value: 65
-Values in SLs:
-First SL percentage: -2%
-Second SL percentage: -3%
+Second TP percentage: 1.5%
+First RSI TP value: 42.5
+Second RSI TP value: 55
+Values in SL:
+SL percentage: -2%
 ---------------------------------
-
-Pair: RUNE/USDT
-Timeframe: 1m
-Starting date: 1 November 2022
-End date: 1 November 2023
-Initial Bank: 1000
-Final Profit/Loss: 1030.344434444946
-ROI: 103.034434444%
-Win Rate: 94.56545283881682%
-Wins: 39291, Losses: 2258
-Max Drawdown: -5.020431990659666%
-RSI values for the buys:
-First buy at RSI value: 29
-Second buy at RSI value: 27
-Third buy at RSI value: 26
-Values in TPs:
-First TP percentage: 1%
-Second TP percentage: 2%
-First RSI TP value: 55
-Second RSI TP value: 65
-Values in SLs:
-First SL percentage: -2%
-Second SL percentage: -3%
----------------------------------
-
-Pair: AVAX/USDT
-Timeframe: 1m
-Starting date: 1 November 2022
-End date: 1 November 2023
-Initial Bank: 1000
-Final Profit/Loss: 556.0945074007282
-ROI: 55.609407%
-Win Rate: 95.2240838460229%
-Wins: 39159, Losses: 1964
-Max Drawdown: -5.861456483126112%
-RSI values for the buys:
-First buy at RSI value: 29
-Second buy at RSI value: 27.5
-Third buy at RSI value: 26
-Values in TPs:
-First TP percentage: 0.75%
-Second TP percentage: 1.75%
-First RSI TP value: 55
-Second RSI TP value: 65
-Values in SLs:
-First SL percentage: -2%
-Second SL percentage: -3%
----------------------------------
-
-
-Pair: AVAX/USDT
-Timeframe: 1m
-Starting date: 15 November 2022
-End date: 15 November 2023
-Initial Bank: 1000
-Final Profit/Loss: 642.0470092836499
-ROI: 64.20470092836499%
-Win Rate: 95.5690917129243%
-Wins: 38910, Losses: 1804
-Max Drawdown: -11.242603550295856%
-RSI values for the buys:
-First buy at RSI value: 29
-Second buy at RSI value: 27.5
-Third buy at RSI value: 26
-Values in TPs:
-First TP percentage: 0.75%
-Second TP percentage: 1.75%
-First RSI TP value: 55
-Second RSI TP value: 65
-Values in SLs:
-First SL percentage: -2%
-Second SL percentage: -3%
----------------------------------
-
