@@ -21,72 +21,108 @@ def calculate_rsi(data, window=14):
     return rsi
 
 def backtest_strategy(data):
-    initial_bank = 1000
+    initial_bank = 1000 #The inital bank that the user will use
     bank = initial_bank
     holdings = 0
     buy_price = 0
     max_drawdown = 0
     wins = 0
     losses = 0
-    first_tp_perc = 0.75
-    sec_tp_perc = 1.25
-    sl_perc = -2.5
-    rsi_value_1 = 45
-    rsi_value_2 = 59
-    buy_rsi_1 = 29.5
-    buy_rsi_2 = 28
+    first_tp_perc = 1 #Values for TPs
+    sec_tp_perc = 1.5
+    sl_perc = -2 #Value for SL
+    rsi_value_1 = 42.5 #Values for TPs in the RSI
+    rsi_value_2 = 55
+    buy_rsi_1 = 29.5 #Values for buys in the RSI
+    buy_rsi_2 = 28.5
     buy_rsi_3 = 27
-    
+   # Flags to track if a buy level and TP1 has been triggered 
+    bought_buy_1 = False
+    bought_buy_2 = False
+    bought_buy_3 = False
+    tp_1_hit = False
+
     for index, row in data.iterrows():
         rsi = row['RSI']
         price = row['close']
-
+        buy_amount = 0
+        profit_percent = 0
+        
         # Check for buy signals
-        if holdings == 0:
-            if rsi < buy_rsi_1:
-                buy_amount = bank * 0.3
-            elif rsi < buy_rsi_2:
+        if holdings == 0 or (holdings > 0 and tp_1_hit):
+            if rsi < buy_rsi_1 and not bought_buy_1:
+                buy_amount = bank * (0.25 if tp_1_hit else 0.4) # If TP1 was hit, we lower the bank amount invested if RSI goes below buy_rsi_1 again
+                bought_buy_1 = True
+                bank -= buy_amount
+                holdings += buy_amount / price
+                buy_price = price if holdings == buy_amount / price else buy_price
+            elif rsi < buy_rsi_2 and not bought_buy_2:
                 buy_amount = bank * 0.5
-            elif rsi < buy_rsi_3:
+                bought_buy_2 = True
+                bank -= buy_amount
+                holdings += buy_amount / price
+                buy_price = price if holdings == buy_amount / price else buy_price
+            elif rsi < buy_rsi_3 and not bought_buy_3:
                 buy_amount = bank
-            else:
-                continue
+                bought_buy_3 = True
+                bank -= buy_amount
+                holdings += buy_amount / price
+                buy_price = price if holdings == buy_amount / price else buy_price
 
-            # Update bank and holdings
-            bank -= buy_amount
-            holdings += buy_amount / price
-            buy_price = price
+            # Update bank and holdings if a buy signal was triggered
+            if buy_amount > 0:
+                bank -= buy_amount
+                holdings += buy_amount / price
+                buy_price = price if holdings == buy_amount / price else buy_price
 
         # Check for sell signals
         if holdings > 0:
             profit_percent = (price - buy_price) / buy_price * 100
-            # First sell condition
+            # First sell condition(TP1)
             if profit_percent >= first_tp_perc or rsi > rsi_value_1:
-                sell_amount = holdings * 0.7
+                sell_amount = holdings * 0.8
                 bank += sell_amount * price
                 holdings -= sell_amount
+                bought_buy_1 = False
+                bought_buy_2 = False
+                bought_buy_3 = False
+                tp_1_hit = True
                 if profit_loss_percent > 0: 
                     wins += 1
                 else: 
                     losses += 1
 
-            # Second sell condition
+            # Second sell condition(TP2)
             if profit_percent >= sec_tp_perc or rsi > rsi_value_2:
                 sell_amount = holdings
                 bank += sell_amount * price
                 holdings = 0
+                bought_buy_1 = False
+                bought_buy_2 = False
+                bought_buy_3 = False
                 if profit_loss_percent > 0: 
                     wins += 1
                 else: 
                     losses += 1
-
-        # Check for stop loss conditions
-        loss_percent = (price - buy_price) / buy_price * 100
-        if loss_percent <= sl_perc:
-            sell_amount = holdings
-            bank += sell_amount * price
-            holdings = 0
-            losses += 1  # Increment losses for this stop loss
+                        
+            if tp_1_hit and (rsi > rsi_value_2):
+                bought_buy_1 = False
+                bought_buy_2 = False
+                bought_buy_3 = False
+                tp_1_hit = False
+                
+        # Check for stop loss conditions only if we have holdings
+        if holdings > 0:
+            loss_percent = (price - buy_price) / buy_price * 100
+            if loss_percent <= sl_perc:
+                sell_amount = holdings
+                bank += sell_amount * price
+                holdings = 0
+                bought_buy_1 = False
+                bought_buy_2 = False
+                bought_buy_3 = False
+                tp_1_hit = False  
+                losses += 1  # Increment losses when we hit stop loss
 
         # Update wins and losses based on sell conditions and actual PnL
         profit_loss_percent = (price - buy_price) / buy_price * 100 if buy_price != 0 else 0
@@ -137,21 +173,21 @@ def save_results(pair, timeframe, starting_date, end_date, initial_bank, profit_
             file.write(f'Second TP percentage: {sec_tp_perc}%\n')
             file.write(f'First RSI TP value: {rsi_value_1}\n')
             file.write(f'Second RSI TP value: {rsi_value_2}\n')
-            file.write(f'Values in SLs:\n')
-            file.write(f'First SL percentage: {sl_perc}%\n')
+            file.write(f'Value in SL:\n')
+            file.write(f'SL percentage: {sl_perc}%\n')
             file.write(f"---------------------------------\n\n")
 
 
 # Load historical data for the cryptocurrency
-timeframe = "1m"
+timeframe = "5m"
 starting_date = "1 January 2022"
 end_date = "15 November 2023"
-data = download_data("AVAX", "USDT", timeframe, starting_date, end_date)
+data = download_data("QNT", "USDT", timeframe, starting_date, end_date)
 data['RSI'] = calculate_rsi(data['close'])
 
 # Run backtest
-pair = "AVAX/USDT" #Change the pair name here and when you download the data, they will have to match
 result, winrate, wins, losses, max_drawdown, roi, initial_bank, first_tp_perc, sec_tp_perc, sl_perc, rsi_value_1, rsi_value_2, buy_rsi_1, buy_rsi_2, buy_rsi_3 = backtest_strategy(data)
+print(f"Pair: {pair}")
 print(f"Final Profit/Loss: {result}")
 print(f"TimeFrame: {timeframe}")
 print(f"Starting date: {starting_date}")
