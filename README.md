@@ -45,15 +45,15 @@ First RSI TP value: 55
 
 Second RSI TP value: 65
 
-Values in SLs:
+Values in SL:
 
 SL percentage: -2%
 
 
-The bot executes 3 buy trades, the first one with 30% of the bank whenever the RSI on the 1min timeframe goes below 29, always after closure of the previous candle. The second on if the RSI goes below 27.5 with 50% of the remaining bank balance and the last buy would be if RSI value goes below 26.
+The bot executes 3 buy trades, the first one with 40% of the bank whenever the RSI on the 1min timeframe goes below 29, always after closure of the previous candle. The second on if the RSI goes below 27.5 with 50% of the remaining bank balance and the last buy would be if RSI value goes below 26.
 If the RSI value of the previous candle is 29.6 for example and the next one is 25.7, the bot goes full position in that candle because it has triggered all buy parameters. This is the code section for the buy signals:
 
-![image](https://github.com/asier13/Python-Trading-Bot/assets/62717613/f00fae34-3e13-4822-bc42-65338134f759)
+<img width="577" alt="image" src="https://github.com/asier13/Python-Trading-Bot/assets/62717613/5af641b6-a27c-405a-9064-d32bbedab8b0">
 
 
 And this is an example of how it would look in the chart:
@@ -70,11 +70,11 @@ The bot bought at $21.77 and now waits for another buy oportunity or for the TP 
 ![image](https://github.com/asier13/Python-Trading-Bot/assets/62717613/080371ad-084d-4ed6-a964-80b5f20c99b3)
 
 In this case, the bot triggered the first TP because the position's PNL is higher than 0.75%, which is the first percentage TP, eventhough the RSI value is 53 and our first RSI TP was 55. So we got higher PNL than the parameter we had.
-After that, we are still holding 30% of the position, because with the first TP parameters we sell 70% of the position, the other 30% will be triggered or holded and added to a new position later on. In that case the second TP was triggered, getting 2.4% on that 30% remaining plus the 0.8% got in the first TP:
+After that, we are still holding 20% of the position, because with the first TP parameters we sell 80% of the position, the other 20% will be triggered or holded and added to a new position later on. In that case the second TP was triggered, getting 2.4% on that 20% remaining plus the 0.8% got in the first TP:
 
 ![image](https://github.com/asier13/Python-Trading-Bot/assets/62717613/124a2940-6ee1-4a0e-a378-2dc8dcc99a51)
 
-
+When the first TP is hit, we set the boolean value of tp_1_hit to True and reset the values of the buys so if the RSI goes below the parameters set by the user the bot will trade again as if none of the buys were triggered. This was done to improve W/R and ROI of the strategy after a lot of testing. The reason for this is because we had our first win when we hit the first TP and have a chance of accumulate again if price retests those RSI levels.
 Lets take a look at another example, where the bot goes full position and sell the whole position:
 
 ![image](https://github.com/asier13/Python-Trading-Bot/assets/62717613/e04aa5cd-e19d-4142-a261-fb92fea3bb41)
@@ -82,8 +82,7 @@ Lets take a look at another example, where the bot goes full position and sell t
 This is because the RSI closed below 26 and all buy entries where triggered, same with the TPs where the first one was when it closed with a 1% profit and second one because the RSI of the previous candle (marked with the second green line) above 65. If the bot didnt close, we would have touched the SL.
 This is the reason why we use the RSI in the buys and with the TPs, to secure profits and not depend on percentages. Here is the code for the TPs section:
 
-![image](https://github.com/asier13/Python-Trading-Bot/assets/62717613/178a7cfe-8340-40f9-b681-4b09489a9e00)
-
+<img width="512" alt="image" src="https://github.com/asier13/Python-Trading-Bot/assets/62717613/14d6f9c6-5d61-4f5c-8c98-f7125f50b7c1">
 
 The buys are set at those RSI values for a reason, the bounces that we are looking for in this strategy are more likely in that 29-26 RSI value zone, giving us more W/R and more ROI because we get a better entry.
 Here is an example if we set the RSI values at 31 or 30 for example marked with circles that proof that we would have a lower W/R and higher drawdown:
@@ -93,7 +92,7 @@ Here is an example if we set the RSI values at 31 or 30 for example marked with 
 
 Last example to explain how we would hold the position and understand how the SL works in this strategy.
 So for the first scenario, sometimes the RSI value will go below 26 which is my last buy trade but we wouldnt get the bounce we want, but because we are trading on lower timeframes, we would have to wait for the higher timeframes to do the work for us.
-Here we would go full position as the RSI goes below 26 but we will only get a 0.55% bounce and RSI doesnt even reach 45, which is not enough to trigger our TPs. Price keeps falling and the bot just waits for TPs or the SLs. 
+Here we would go full position as the RSI goes below 26 but we will only get a 0.55% bounce and RSI doesnt even reach 45, which is not enough to trigger our TPs. Price keeps falling and the bot just waits for TPs or the SL. 
 
 ![image](https://github.com/asier13/Python-Trading-Bot/assets/62717613/3603eb2b-5028-442f-8ebe-f6a1412f8ed6)
 
