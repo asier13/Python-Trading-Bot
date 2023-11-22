@@ -104,7 +104,7 @@ For cases with strong downtrend and no bounces its very important to have a SL t
 
 
 Because we are full position, the bot cant keep adding trades, so it has to wait for the price to bounce or the SL. When we touch the SL we sell the position at a -2% loss, the percentage depends on the asset and risk management of the user as I said at the beginning.
-The bot as soon as it sells, it triggers a buy and goes full position again because the previous candle closed with a RSI value below 26, averaging the position and again, wait for new trades, either the TPs or SL to get triggered, in that case it was the TPs:
+The bot as soon as it sells, it triggers a buy and goes full position again because the previous candle closed with a RSI value below 26. After that it waits for new trades, either the TPs or SL to get triggered, in that case it was the TPs:
 
 ![image](https://github.com/asier13/Python-Trading-Bot/assets/62717613/a04894d8-24f1-4a14-a53b-3c9bc5313a0b)
 
