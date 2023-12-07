@@ -1,17 +1,7 @@
 # Python-Trading-Bot
 A crypto trading bot script made in Python to backtest a RSI strategy focused on scalping in the 1-5-15m timeframes with high W/R in Spot markets.
 
-The strategy is simple, it uses the Binance.client library to access real-time data of the asset to analyze, you can install it running this command:
-
-```
-pip install python-binance
-```
-The script also uses the numpy and pandas libraries, you can install them using these commands:
-
-```
-pip install pandas
-pip install numpy
-```
+The strategy is simple, it uses the Binance.client library to access real-time data of the asset to analyze, you can install all the requirements in the requirements.txt
 
 The calculate_rsi() function calculates the value of RSI to use it in the strategy. 
 Backtest_strategy() uses the following parameters:
