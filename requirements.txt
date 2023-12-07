@@ -1,0 +1,4 @@
+pip install kucoin-python
+pip install python-binance
+pip install pandas
+pip install pytz
